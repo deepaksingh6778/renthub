@@ -55,11 +55,11 @@
       <!-- Featured Info Card (smaller column) -->
       <aside class="featured-side">
         <div class="featured-info-card" *ngIf="featuredListings.length > 0; else noFeatured">
-          <h5>{{ featuredListings[0].title }}</h5>
-          <p class="text-muted">{{ featuredListings[0].desc }}</p>
+          <h5>{{ featuredListings[featuredListings.length - 1].title }}</h5>
+          <p class="text-muted">{{ featuredListings[featuredListings.length - 1].desc }}</p>
           <div class="button-group">
-            <button class="btn btn-primary" (click)="viewDetails(featuredListings[0])">View Details</button>
-            <button class="btn btn-outline-secondary" (click)="toggleFav(featuredListings[0])">Mark as Favorite</button>
+            <button class="btn btn-primary" (click)="viewDetails(featuredListings[featuredListings.length - 1])">View Details</button>
+            <button class="btn btn-outline-secondary" (click)="toggleFav(featuredListings[featuredListings.length - 1])">Mark as Favorite</button>
           </div>
         </div>
         <ng-template #noFeatured>

@@ -22,23 +22,15 @@ export class Home {
     const posts = await this.dbService.getAllItems();
     console.log('Fetched posts from IndexedDB:', posts);
     if (posts && posts.length > 0) {
-      // Map post fields for display
-      const latest = posts[posts.length - 1];
-      this.featuredListings = [{
-        title: latest.title || 'No Title',
-        desc: latest.description || 'No Description',
-        image: latest.image || '',
-        fav: false,
-        id: latest.id || 1
-      }];
-      // Map all posts for listings
-      this.listings = posts.map(post => ({
+      // Map all posts for carousel and listings
+      this.featuredListings = posts.map(post => ({
         title: post.title || 'No Title',
         desc: post.description || 'No Description',
         image: post.image || '',
         fav: false,
         id: post.id || 1
       }));
+      this.listings = this.featuredListings;
     } else {
       this.featuredListings = [];
       this.listings = [];
