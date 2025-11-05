@@ -1,0 +1,313 @@
+<header class="navbar">
+  <a routerLink="/" class="brand">RentHub</a>
+  <div class="nav-links">
+    <a routerLink="/posts/create">Create Post</a>
+    <a routerLink="/login">Login</a>
+    <a routerLink="/register">Register</a>
+    <a href="#">Profile</a>
+  </div>
+</header>
+
+<div class="container">
+  <div class="post-form">   
+    <form #postForm="ngForm" (ngSubmit)="onSubmit(postForm)">
+      <!-- Property Selection -->
+      <div class="form-section">
+        <h3>Choose your Apartment/Building</h3>
+        <div class="row">
+          <div class="col-md-6 form-group">
+            <label class="form-label">Apartment Name</label>
+            <input 
+              type="text" 
+              class="form-control" 
+              name="apartmentName" 
+              [(ngModel)]="model.apartmentName" 
+              required
+              #apartmentName="ngModel">
+            <div class="text-danger" *ngIf="(apartmentName.invalid && (apartmentName.dirty || apartmentName.touched))">
+              <div *ngIf="apartmentName.errors?.['required']">Apartment name is required</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Shared Property -->
+      <div class="form-section">
+        <h3>Is this a shared property?</h3>
+        <div class="radio-group">
+          <div class="form-check">
+            <input 
+              type="radio" 
+              class="form-check-input" 
+              name="isShared" 
+              [value]="true"
+              [(ngModel)]="model.isShared" 
+              id="sharedYes">
+            <label class="form-check-label" for="sharedYes">Yes</label>
+          </div>
+          <div class="form-check">
+            <input 
+              type="radio" 
+              class="form-check-input" 
+              name="isShared" 
+              [value]="false"
+              [(ngModel)]="model.isShared" 
+              id="sharedNo">
+            <label class="form-check-label" for="sharedNo">No</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Location -->
+      <div class="form-section">
+        <h3>Property Location</h3>
+        <div class="form-group">
+          <label class="form-label">Street Address</label>
+          <input 
+            type="text" 
+            class="form-control" 
+            name="location" 
+            [(ngModel)]="model.location" 
+            required
+            #location="ngModel">
+          <div class="text-danger" *ngIf="(location.invalid && (location.dirty || location.touched))">
+            <div *ngIf="location.errors?.['required']">Location is required</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Property Details -->
+      <div class="form-section">
+        <h3>Property Details</h3>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="form-label">Square Feet</label>
+              <input 
+                type="number" 
+                class="form-control" 
+                name="squareFeet" 
+                [(ngModel)]="model.squareFeet" 
+                required
+                min="1"
+                #squareFeet="ngModel">
+              <div class="text-danger" *ngIf="(squareFeet.invalid && (squareFeet.dirty || squareFeet.touched))">
+                <div *ngIf="squareFeet.errors?.['required']">Square feet is required</div>
+                <div *ngIf="squareFeet.errors?.['min']">Must be greater than 0</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Stay Type</label>
+            <div class="radio-group">
+              <div class="form-check">
+                <input 
+                  type="radio" 
+                  class="form-check-input" 
+                  name="stayType" 
+                  value="long"
+                  [(ngModel)]="model.stayType" 
+                  id="longTerm">
+                <label class="form-check-label" for="longTerm">Long term (6+ months)</label>
+              </div>
+              <div class="form-check">
+                <input 
+                  type="radio" 
+                  class="form-check-input" 
+                  name="stayType" 
+                  value="short"
+                  [(ngModel)]="model.stayType" 
+                  id="shortTerm">
+                <label class="form-check-label" for="shortTerm">Short term</label>
+              </div>
+              <div class="form-check">
+                <input 
+                  type="radio" 
+                  class="form-check-input" 
+                  name="stayType" 
+                  value="both"
+                  [(ngModel)]="model.stayType" 
+                  id="bothTerm">
+                <label class="form-check-label" for="bothTerm">Both</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Expected Rent -->
+      <div class="form-section">
+        <h3>Expected Rent</h3>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group rent-input">
+              <div class="flex-grow-1">
+                <input 
+                  type="number" 
+                  class="form-control" 
+                  name="expectedRent" 
+                  [(ngModel)]="model.expectedRent" 
+                  required
+                  min="1"
+                  #expectedRent="ngModel">
+                <div class="text-danger" *ngIf="(expectedRent.invalid && (expectedRent.dirty || expectedRent.touched))">
+                  <div *ngIf="expectedRent.errors?.['required']">Expected rent is required</div>
+                  <div *ngIf="expectedRent.errors?.['min']">Must be greater than 0</div>
+                </div>
+              </div>
+              <div class="form-check">
+                <input 
+                  type="checkbox" 
+                  class="form-check-input" 
+                  name="isNegotiable" 
+                  [(ngModel)]="model.isNegotiable" 
+                  id="negotiable">
+                <label class="form-check-label" for="negotiable">Negotiable</label>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="radio-group">
+              <div class="form-check">
+                <input 
+                  type="radio" 
+                  class="form-check-input" 
+                  name="rentMode" 
+                  value="month"
+                  [(ngModel)]="model.rentMode" 
+                  id="perMonth">
+                <label class="form-check-label" for="perMonth">Per Month</label>
+              </div>
+              <div class="form-check">
+                <input 
+                  type="radio" 
+                  class="form-check-input" 
+                  name="rentMode" 
+                  value="included"
+                  [(ngModel)]="model.rentMode" 
+                  id="included">
+                <label class="form-check-label" for="included">Utilities Included in rent</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Furnished Status -->
+      <div class="form-section">
+        <h3>Is the room/apartment furnished?</h3>
+        <div class="radio-group">
+          <div class="form-check">
+            <input 
+              type="radio" 
+              class="form-check-input" 
+              name="isFurnished" 
+              [value]="true"
+              [(ngModel)]="model.isFurnished" 
+              id="furnishedYes">
+            <label class="form-check-label" for="furnishedYes">Yes</label>
+          </div>
+          <div class="form-check">
+            <input 
+              type="radio" 
+              class="form-check-input" 
+              name="isFurnished" 
+              [value]="false"
+              [(ngModel)]="model.isFurnished" 
+              id="furnishedNo">
+            <label class="form-check-label" for="furnishedNo">No</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Amenities -->
+      <div class="form-section">
+        <h3>Amenities Included</h3>
+        <div class="checkbox-grid">
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="gym" name="gym" [(ngModel)]="model.amenities.gym">
+            <label class="form-check-label" for="gym">Gym/Fitness Center</label>
+          </div>
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="carPark" name="carPark" [(ngModel)]="model.amenities.carPark">
+            <label class="form-check-label" for="carPark">Car Park</label>
+          </div>
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="visitorParking" name="visitorParking" [(ngModel)]="model.amenities.visitorParking">
+            <label class="form-check-label" for="visitorParking">Visitor Parking</label>
+          </div>
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="powerBackup" name="powerBackup" [(ngModel)]="model.amenities.powerBackup">
+            <label class="form-check-label" for="powerBackup">Power Backup</label>
+          </div>
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="garbageDisposal" name="garbageDisposal" [(ngModel)]="model.amenities.garbageDisposal">
+            <label class="form-check-label" for="garbageDisposal">Garbage Disposal</label>
+          </div>
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="privateLawn" name="privateLawn" [(ngModel)]="model.amenities.privateLawn">
+            <label class="form-check-label" for="privateLawn">Private Lawn</label>
+          </div>
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="waterHeater" name="waterHeater" [(ngModel)]="model.amenities.waterHeater">
+            <label class="form-check-label" for="waterHeater">Water Heater</label>
+          </div>
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="plantSecurity" name="plantSecurity" [(ngModel)]="model.amenities.plantSecurity">
+            <label class="form-check-label" for="plantSecurity">Plant Security System</label>
+          </div>
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="laundry" name="laundry" [(ngModel)]="model.amenities.laundry">
+            <label class="form-check-label" for="laundry">Laundry Service</label>
+          </div>
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="elevator" name="elevator" [(ngModel)]="model.amenities.elevator">
+            <label class="form-check-label" for="elevator">Elevator</label>
+          </div>
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="clubHouse" name="clubHouse" [(ngModel)]="model.amenities.clubHouse">
+            <label class="form-check-label" for="clubHouse">Club House</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Description -->
+      <div class="form-section">
+        <h3>Description</h3>
+        <div class="form-group">
+          <label class="form-label">Title</label>
+          <input 
+            type="text" 
+            class="form-control" 
+            name="title" 
+            [(ngModel)]="model.title" 
+            required
+            #title="ngModel">
+          <div class="text-danger" *ngIf="(title.invalid && (title.dirty || title.touched))">
+            <div *ngIf="title.errors?.['required']">Title is required</div>
+          </div>
+        </div>
+        <div class="form-group description-field">
+          <label class="form-label">Description</label>
+          <textarea 
+            class="form-control" 
+            name="description" 
+            [(ngModel)]="model.description" 
+            required
+            maxlength="1200"
+            rows="5"
+            #description="ngModel"></textarea>
+          <div class="text-danger" *ngIf="(description.invalid && (description.dirty || description.touched))">
+            <div *ngIf="description.errors?.['required']">Description is required</div>
+            <div *ngIf="description.errors?.['maxlength']">Description must be less than 1200 characters</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <div class="d-grid gap-2">
+        <button type="submit" class="btn btn-primary" [disabled]="postForm.invalid">Create Post</button>
+      </div>
+    </form>
+  </div>
+</div>
