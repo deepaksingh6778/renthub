@@ -31,7 +31,7 @@ export class Home {
       this.featuredListings = posts.map((post, idx) => ({
         title: post.title || post.apartmentName || 'No Title',
         desc: post.description || post.location || 'No Description',
-        image: post.image && post.image.startsWith('data:image') ? post.image : '/assets/default.jpg',
+        image: post.image ? post.image : '/assets/default.png',
         fav: false,
         id: typeof post.id === 'number' ? post.id : idx + 1
       }));
