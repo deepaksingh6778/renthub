@@ -1,0 +1,21 @@
+.signup-page {
+  display: flex;
+  justify-content: center;
+  padding: 2rem 1rem;
+}
+
+.signup-card {
+  width: 700px;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  padding: 1.25rem;
+  background: #fff;
+}
+
+.form-label {
+  font-size: 0.9rem;
+}
+
+@media (max-width: 767px) {
+  .signup-card { width: 100%; }
+}

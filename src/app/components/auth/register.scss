@@ -1,0 +1,65 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+
+  .brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+    text-decoration: none;
+    &:hover {
+      color: #000;
+    }
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 1.5rem;
+
+    a {
+      text-decoration: none;
+      color: #666;
+      &:hover {
+        color: #333;
+      }
+    }
+  }
+}
+
+.auth-page { 
+  display: flex; 
+  justify-content: center; 
+  padding: 2rem 1rem; 
+}
+
+.auth-card { 
+  width: 420px; 
+  border: 1px solid #e0e0e0; 
+  padding: 1rem; 
+  border-radius: 6px; 
+  background: #fff; 
+}
+
+.form-label { 
+  font-size: 0.9rem; 
+}
+
+@media (max-width: 767px) { 
+  .auth-card { 
+    width: 100%; 
+  } 
+
+  .navbar {
+    padding: 1rem;
+    flex-wrap: wrap;
+    
+    .nav-links {
+      gap: 1rem;
+      margin-top: 0.5rem;
+    }
+  }
+}

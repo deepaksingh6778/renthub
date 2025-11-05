@@ -1,0 +1,39 @@
+<div class="signup-page container">
+  <div class="signup-card">
+    <h2 class="mb-3">Login</h2>
+    <form (ngSubmit)="onLoginSubmit()">
+      <div class="mb-2">
+        <label class="form-label">Email</label>
+        <input type="email" class="form-control" [(ngModel)]="login.email" name="loginEmail" required />
+      </div>
+      <div class="mb-2">
+        <label class="form-label">Password</label>
+        <input type="password" class="form-control" [(ngModel)]="login.password" name="loginPassword" required />
+      </div>
+      <div class="mb-3">
+        <button type="button" class="btn btn-primary" (click)="onLoginSubmit()">Login</button>
+      </div>
+
+      <hr />
+
+      <h2 class="mb-3">Register</h2>
+      <form (ngSubmit)="onRegisterSubmit()">
+        <div class="mb-2">
+          <label class="form-label">Name</label>
+          <input type="text" class="form-control" [(ngModel)]="register.name" name="regName" required />
+        </div>
+        <div class="mb-2">
+          <label class="form-label">Email</label>
+          <input type="email" class="form-control" [(ngModel)]="register.email" name="regEmail" required />
+        </div>
+        <div class="mb-2">
+          <label class="form-label">Password</label>
+          <input type="password" class="form-control" [(ngModel)]="register.password" name="regPassword" required />
+        </div>
+        <div class="mb-3">
+          <button type="button" class="btn btn-primary" (click)="onRegisterSubmit()">Register</button>
+        </div>
+      </form>
+    </form>
+  </div>
+</div>

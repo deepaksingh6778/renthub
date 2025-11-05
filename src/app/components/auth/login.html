@@ -1,0 +1,41 @@
+<header class="navbar">
+  <a routerLink="/" class="brand">RentHub</a>
+  <div class="nav-links">
+    <a routerLink="/login">Login</a>
+    <a routerLink="/register">Register</a>
+    <a href="#">Profile</a>
+  </div>
+</header>
+
+<div class="auth-page container">
+  <div class="auth-card">
+    <h2>Login</h2>
+    <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
+      <div class="mb-2">
+        <label class="form-label">Email</label>
+        <input name="email" [(ngModel)]="model.email" required email class="form-control" #emailFld="ngModel" />
+        <div class="text-danger" *ngIf="(emailFld.invalid && (emailFld.dirty || emailFld.touched))">
+          <div *ngIf="emailFld.errors?.['required']">Email is required.</div>
+          <div *ngIf="emailFld.errors?.['email']">Enter a valid email.</div>
+        </div>
+      </div>
+
+      <div class="mb-2">
+        <label class="form-label">Password</label>
+        <input name="password" [(ngModel)]="model.password" required minlength="6" type="password" class="form-control" #pwd="ngModel" />
+        <div class="text-danger" *ngIf="(pwd.invalid && (pwd.dirty || pwd.touched))">
+          <div *ngIf="pwd.errors?.['required']">Password is required.</div>
+          <div *ngIf="pwd.errors?.['minlength']">Password must be at least 6 characters.</div>
+        </div>
+      </div>
+
+      <div class="d-grid gap-2">
+        <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid">Login</button>
+      </div>
+
+      <div class="text-center mt-3">
+        <p>Don't have an account? <a routerLink="/register">Register here</a></p>
+      </div>
+    </form>
+  </div>
+</div>
