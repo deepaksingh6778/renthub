@@ -3,7 +3,7 @@ import { DbService } from '../../services/db.service';
 import { NavbarComponent } from '../navbar.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -16,12 +16,12 @@ export class Register {
   model = { name: '', email: '', password: '' };
   submitted = false;
 
-  constructor(private dbService: DbService) {}
+  constructor(private dbService: DbService, private router: Router) {}
 
   async onSubmit(form: NgForm) {
     this.submitted = true;
     if (form.invalid) return;
     await this.dbService.registerUser(this.model);
-    alert(`Registered: ${this.model.name} (${this.model.email})`);
+    this.router.navigate(['/login']);
   }
 }

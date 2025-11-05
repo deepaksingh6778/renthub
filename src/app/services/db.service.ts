@@ -1,8 +1,13 @@
+// ...existing code...
 import { Injectable } from '@angular/core';
 import { openDB, IDBPDatabase } from 'idb';
 
 @Injectable({ providedIn: 'root' })
 export class DbService {
+  async getUserByEmail(email: string) {
+    const db = await this.dbPromise;
+    return db.get('users', email);
+  }
   private dbPromise: Promise<IDBPDatabase<any>>;
 
   constructor() {

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { DbService } from '../../services/db.service';
 import { NavbarComponent } from '../navbar.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
@@ -15,14 +16,17 @@ export class Login {
   model = { email: '', password: '' };
   submitted = false;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private dbService: DbService) {}
 
-  onSubmit(form: NgForm) {
+  async onSubmit(form: NgForm) {
     this.submitted = true;
     if (form.invalid) return;
-    // Set dummy auth token
-    localStorage.setItem('authToken', 'dummy-token');
-    // Redirect to home
-    this.router.navigate(['/']);
+    const user = await this.dbService.getUserByEmail(this.model.email);
+    if (user && user.password === this.model.password) {
+      localStorage.setItem('authToken', 'dummy-token');
+      this.router.navigate(['/']);
+    } else {
+      alert('Invalid email or password');
+    }
   }
 }
