@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { DbService } from '../../services/db.service';
 import { NavbarComponent } from '../navbar.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
@@ -15,10 +16,12 @@ export class Register {
   model = { name: '', email: '', password: '' };
   submitted = false;
 
-  onSubmit(form: NgForm) {
+  constructor(private dbService: DbService) {}
+
+  async onSubmit(form: NgForm) {
     this.submitted = true;
     if (form.invalid) return;
-    // TODO: connect to API
+    await this.dbService.registerUser(this.model);
     alert(`Registered: ${this.model.name} (${this.model.email})`);
   }
 }

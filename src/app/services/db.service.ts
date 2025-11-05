@@ -6,14 +6,22 @@ export class DbService {
   private dbPromise: Promise<IDBPDatabase<any>>;
 
   constructor() {
-    this.dbPromise = openDB('renthub-db', 1, {
-      upgrade(db) {
+    this.dbPromise = openDB('renthub-db', 2, {
+      upgrade(db, oldVersion, newVersion) {
         if (!db.objectStoreNames.contains('items')) {
           db.createObjectStore('items', { keyPath: 'id', autoIncrement: true });
+        }
+        if (!db.objectStoreNames.contains('users')) {
+          db.createObjectStore('users', { keyPath: 'email' });
         }
       },
     });
     //this.seedDefaultPosts();
+  }
+
+  async registerUser(user: { name: string; email: string; password: string }) {
+    const db = await this.dbPromise;
+    return db.put('users', user);
   }
 
   async seedDefaultPosts() {
