@@ -13,7 +13,7 @@ export class DbService {
         }
       },
     });
-    this.seedDefaultPosts();
+    //this.seedDefaultPosts();
   }
 
   async seedDefaultPosts() {

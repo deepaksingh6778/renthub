@@ -19,7 +19,8 @@ export class Home {
   constructor(private dbService: DbService, private router: Router, private cdr: ChangeDetectorRef) {}
 
   async ngOnInit() {
-    await this.loadFeaturedListing();
+  await this.dbService.seedDefaultPosts();
+  await this.loadFeaturedListing();
   }
 
   async loadFeaturedListing() {
