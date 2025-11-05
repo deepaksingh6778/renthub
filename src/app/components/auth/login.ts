@@ -24,6 +24,7 @@ export class Login {
     const user = await this.dbService.getUserByEmail(this.model.email);
     if (user && user.password === this.model.password) {
       localStorage.setItem('authToken', 'dummy-token');
+      localStorage.setItem('userName', user.name);
       this.router.navigate(['/']);
     } else {
       alert('Invalid email or password');

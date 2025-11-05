@@ -48,13 +48,13 @@ interface PostPreview {
       private cdr: ChangeDetectorRef
     ) {}
 
-    ngOnInit(): void {
+    async ngOnInit(): Promise<void> {
       this.route.paramMap.subscribe(async params => {
         const idParam = params.get('id');
         this.id = idParam ? +idParam : null;
         if (this.id !== null) {
           this.data = await this.dbService.getItem(this.id);
-          this.loadComments();
+          await this.loadComments();
           this.cdr.detectChanges();
         } else {
           this.data = null;
@@ -64,20 +64,19 @@ interface PostPreview {
       });
     }
 
-    loadComments() {
+    async loadComments() {
       if (this.id === null) {
         this.comments = [];
         return;
       }
-      const raw = localStorage.getItem('comments_' + this.id);
-      this.comments = raw ? JSON.parse(raw) : [];
+      this.comments = await this.dbService.getComments(this.id);
     }
 
-    addComment() {
+    async addComment() {
       if (!this.newComment || this.id === null) return;
-      let user = localStorage.getItem('userEmail') || 'Anonymous';
+      let user = localStorage.getItem('userName') || 'Anonymous';
       this.comments.push({ user, text: this.newComment });
-      localStorage.setItem('comments_' + this.id, JSON.stringify(this.comments));
+      await this.dbService.saveComments(this.id, this.comments);
       this.newComment = '';
     }
 

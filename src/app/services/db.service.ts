@@ -11,7 +11,7 @@ export class DbService {
   private dbPromise: Promise<IDBPDatabase<any>>;
 
   constructor() {
-    this.dbPromise = openDB('renthub-db', 2, {
+    this.dbPromise = openDB('renthub-db', 3, {
       upgrade(db, oldVersion, newVersion) {
         if (!db.objectStoreNames.contains('items')) {
           db.createObjectStore('items', { keyPath: 'id', autoIncrement: true });
@@ -19,9 +19,23 @@ export class DbService {
         if (!db.objectStoreNames.contains('users')) {
           db.createObjectStore('users', { keyPath: 'email' });
         }
+        if (!db.objectStoreNames.contains('comments')) {
+          db.createObjectStore('comments', { keyPath: 'postId' });
+        }
       },
     });
     //this.seedDefaultPosts();
+  }
+
+  async getComments(postId: number): Promise<Array<{ user: string; text: string }>> {
+    const db = await this.dbPromise;
+    const entry = await db.get('comments', postId);
+    return entry && entry.comments ? entry.comments : [];
+  }
+
+  async saveComments(postId: number, comments: Array<{ user: string; text: string }>): Promise<void> {
+    const db = await this.dbPromise;
+    await db.put('comments', { postId, comments });
   }
 
   async registerUser(user: { name: string; email: string; password: string }) {
