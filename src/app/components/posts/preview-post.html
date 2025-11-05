@@ -1,0 +1,65 @@
+<header class="navbar">
+  <a routerLink="/" class="brand">RentHub</a>
+  <div class="nav-links">
+    <a routerLink="/posts/create">Create Post</a>
+    <a routerLink="/login">Login</a>
+    <a routerLink="/register">Register</a>
+    <a href="#">Profile</a>
+  </div>
+</header>
+
+<div class="container">
+  <div class="preview-panel">
+    <h2 class="mb-4">Preview and Submit</h2>
+
+    <div class="grid">
+      <div class="card">
+        <div class="card-title">Property</div>
+        <div class="card-body">{{ data?.apartmentName || 'Apartment' }}</div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Number of Beds</div>
+        <div class="card-body">--</div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Address</div>
+        <div class="card-body">{{ data?.location }}</div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Rent</div>
+        <div class="card-body">{{ (data?.expectedRent ? ('$' + data?.expectedRent + '/month') : '--') }}</div>
+      </div>
+
+      <div class="card wide">
+        <div class="card-title">Description</div>
+        <div class="card-body">{{ data?.description }}</div>
+      </div>
+
+      <div class="card wide">
+        <div class="card-title">Amenities</div>
+        <div class="card-body">
+          <ul>
+            <li *ngFor="let key of amenitiesKeys">{{ key }}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="photos">
+      <h4>Photos</h4>
+      <div class="photo-grid">
+        <div class="photo-box">Photo 1</div>
+        <div class="photo-box">Photo 2</div>
+        <div class="photo-box">Photo 3</div>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button class="btn btn-secondary" (click)="edit()">Edit</button>
+      <button class="btn btn-primary" (click)="confirm()">Confirm & Submit</button>
+    </div>
+  </div>
+</div>

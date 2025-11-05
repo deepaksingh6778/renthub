@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 
 interface PostForm {
   apartmentName: string;
@@ -69,11 +69,19 @@ export class CreatePost {
 
   submitted = false;
 
+  constructor(private router: Router) {}
+
   onSubmit(form: NgForm) {
     this.submitted = true;
     if (form.invalid) return;
-    
-    // TODO: Handle form submission
-    console.log('Form submitted:', this.model);
+
+    // Save model to sessionStorage for preview step and navigate
+    try {
+      sessionStorage.setItem('postPreview', JSON.stringify(this.model));
+    } catch (e) {
+      console.warn('Could not persist preview data', e);
+    }
+
+    this.router.navigateByUrl('/posts/preview');
   }
 }
