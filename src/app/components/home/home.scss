@@ -3,148 +3,102 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #f7f7f7;
-  padding: 1rem 2rem;
-  border-bottom: 1px solid #ddd;
+  background: white;
+  padding: 0.75rem 2rem;
+  border-bottom: 1px solid #e0e0e0;
+  margin-bottom: 2rem;
 
   .brand {
     font-size: 1.5rem;
     font-weight: bold;
+    color: #333;
   }
 
-  nav a {
-    margin-left: 1.5rem;
-    text-decoration: none;
-    color: #333;
-    font-weight: 500;
+  .nav-links {
+    display: flex;
+    gap: 2rem;
 
-    &:hover {
-      color: #007bff;
+    a {
+      text-decoration: none;
+      color: #666;
+      font-weight: 500;
+      transition: color 0.2s;
+
+      &:hover { color: #007bff; }
     }
   }
 }
 
 /* Main layout */
-.content {
-  padding: 2rem;
+.content { padding: 0 2rem; }
+
+/* Constrain main sections to a centered max width so layout matches the screenshot */
+.featured.container,
+.listings > .container {
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.featured-info-card {
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  max-width: 320px;
+
+  h5 { margin-bottom: 1rem; font-weight: 600; }
+  p { flex: 1; margin-bottom: 1rem; color: #666; }
+
+  .button-group { display:flex; gap: 0.75rem; flex-direction: column;
+    .btn { width: 100%; padding: 0.5rem 1rem; }
+  }
 }
 
 /* Featured Section */
-.featured {
-  margin-bottom: 2rem;
+.featured { margin-bottom: 4rem; }
 
-  /* Scope custom carousel tweaks under .custom-carousel to avoid clobbering
-     Bootstrap's built-in .carousel layout and behavior. */
-  .custom-carousel {
-    /* If you want horizontal scroll fallback styling for very small screens,
-       keep only non-layout styles here. Do not override display/positioning
-       which Bootstrap relies on. */
-    gap: 1.5rem;
+.custom-carousel { border-radius: 8px; overflow: hidden; position: relative; width: 100%; }
 
-    .carousel-item {
-      background: #fff;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      padding: 1rem;
+/* carousel image + overlay */
+.carousel-img { height: 280px; object-fit: cover; width: 100%; }
+.carousel-overlay {
+  position: absolute; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(0deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%);
+  padding: 1.25rem 1.5rem;
 
-      .image-placeholder {
-        width: 100%;
-        height: 150px;
-        background: #eee;
-        border-radius: 8px;
-      }
-
-      .info {
-        margin-top: 1rem;
-      }
-
-      .actions button {
-        margin-right: 0.5rem;
-        padding: 0.4rem 0.8rem;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        background: white;
-        cursor: pointer;
-
-        &:hover {
-          background: #007bff;
-          color: white;
-          border-color: #007bff;
-        }
-      }
-    }
-
-    .carousel-img-placeholder {
-      height: 300px;
-      background: #e9ecef;
-      border-radius: 8px;
-    }
-
-    .carousel-img {
-      height: 225px; /* 1.5x the previous height of 150px */
-      object-fit: cover; /* Maintain aspect ratio and fill width */
-      width: 100%;
-      border-radius: 8px;
-    }
-
-    .image-placeholder {
-      height: 200px;
-      background: #e9ecef;
-      border-radius: 8px 8px 0 0;
-    }
+  .carousel-content { color: #fff;
+    h5 { font-size: 1.25rem; margin-bottom: 0.5rem; }
+    p { margin-bottom: 1rem; opacity: 0.95; }
+    .button-group { display:flex; gap: 0.75rem; .btn { padding: 0.45rem 1rem; } }
   }
+}
+
+/* Responsive featured row */
+.featured-row { display:flex; flex-direction:column; gap:1.5rem; }
+@media (min-width: 992px) {
+  .featured-row { flex-direction:row; }
+  .featured-main { flex: 0 0 70%; }
+  .featured-side { flex: 0 0 30%; display:flex; align-items:flex-start; }
 }
 
 /* All Listings */
-.listings {
-  h2 {
-    margin-bottom: 1rem;
-  }
+.listings { padding: 2rem 0 4rem; }
+.listings h2 { margin-bottom: 1.5rem; font-weight: 500; }
+.listings-grid { display:grid; grid-template-columns: repeat(3,1fr); gap: 2rem; }
 
-  .listing-grid {
-    display: grid;
-    gap: 1rem;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+.card { border:1px solid #e0e0e0; border-radius:8px; overflow:hidden; background:#fff; }
+.listing-img { height:180px; object-fit:cover; width:100%; }
+.card-body { padding: 1.25rem; }
+.card-body h5 { margin-bottom: 0.5rem; font-weight:500; }
+.card-body p { color:#666; margin-bottom:1rem; font-size:0.95rem; }
+.card .button-group { display:flex; gap:0.5rem; }
+.card .button-group .btn { padding:0.45rem 0.75rem; font-size:0.9rem; }
 
-    .card {
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      background: white;
-      overflow: hidden;
+/* responsive listings grid */
+@media (max-width: 991px) { .listings-grid { grid-template-columns: repeat(2,1fr); } }
+@media (max-width: 575px) { .listings-grid { grid-template-columns: 1fr; } }
 
-      .listing-img {
-        height: 180px;
-        object-fit: cover;
-        width: 100%;
-      }
-
-      .card-body {
-        padding: 1rem;
-
-        h3 {
-          margin: 0;
-        }
-
-        .actions {
-          margin-top: 0.8rem;
-
-          button {
-            margin-right: 0.5rem;
-            padding: 0.4rem 0.8rem;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            background: white;
-            cursor: pointer;
-
-            &:hover {
-              background: #007bff;
-              color: white;
-              border-color: #007bff;
-            }
-          }
-        }
-      }
-    }
-  }
-}
 
