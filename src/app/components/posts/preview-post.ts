@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { NavbarComponent } from '../navbar.component';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { RouterModule, Router, ActivatedRoute } from '@angular/router';
 import { DbService } from '../../services/db.service';
 
@@ -24,45 +25,69 @@ interface PostPreview {
 @Component({
   selector: 'app-preview-post',
   standalone: true,
-  imports: [CommonModule, RouterModule, NavbarComponent],
+  imports: [CommonModule, RouterModule, NavbarComponent, FormsModule],
   templateUrl: './preview-post.html',
   styleUrls: ['./preview-post.scss']
 })
-export class PreviewPost implements OnInit {
-  data: PostPreview | null = null;
-  id: number | null = null;
+  export class PreviewPost implements OnInit {
+    data: PostPreview | null = null;
+    id: number | null = null;
 
-  get amenitiesKeys(): string[] {
-    if (!this.data || !this.data.amenities) return [];
-    return Object.keys(this.data.amenities).filter(k => !!this.data!.amenities![k]);
-  }
+    comments: Array<{ user: string; text: string }> = [];
+    newComment: string = '';
 
-  constructor(private router: Router, private route: ActivatedRoute, private dbService: DbService, private cdr: ChangeDetectorRef) {}
+    get amenitiesKeys(): string[] {
+      if (!this.data || !this.data.amenities) return [];
+      return Object.keys(this.data!.amenities!).filter(k => !!this.data!.amenities![k]);
+    }
 
-  ngOnInit(): void {
-    this.route.paramMap.subscribe(async params => {
-      const idParam = params.get('id');
-      this.id = idParam ? +idParam : null;
-      if (this.id !== null) {
-        this.data = await this.dbService.getItem(this.id);
-        console.log('Fetched post data:', this.data);
-        this.cdr.detectChanges();
-      } else {
-        this.data = null;
-        this.cdr.detectChanges();
+    constructor(
+      private router: Router,
+      private route: ActivatedRoute,
+      private dbService: DbService,
+      private cdr: ChangeDetectorRef
+    ) {}
+
+    ngOnInit(): void {
+      this.route.paramMap.subscribe(async params => {
+        const idParam = params.get('id');
+        this.id = idParam ? +idParam : null;
+        if (this.id !== null) {
+          this.data = await this.dbService.getItem(this.id);
+          this.loadComments();
+          this.cdr.detectChanges();
+        } else {
+          this.data = null;
+          this.comments = [];
+          this.cdr.detectChanges();
+        }
+      });
+    }
+
+    loadComments() {
+      if (this.id === null) {
+        this.comments = [];
+        return;
       }
-    });
-  }
+      const raw = localStorage.getItem('comments_' + this.id);
+      this.comments = raw ? JSON.parse(raw) : [];
+    }
 
-  edit() {
-    this.router.navigateByUrl('/posts/create');
-  }
+    addComment() {
+      if (!this.newComment || this.id === null) return;
+      let user = localStorage.getItem('userEmail') || 'Anonymous';
+      this.comments.push({ user, text: this.newComment });
+      localStorage.setItem('comments_' + this.id, JSON.stringify(this.comments));
+      this.newComment = '';
+    }
 
-  confirm() {
-    // Here you would call your API to create the post. For now we'll just log and clear preview.
-    console.log('Confirmed post:', this.data);
-    sessionStorage.removeItem('postPreview');
-    // Navigate to home or post list after confirm
-    this.router.navigateByUrl('/');
+    edit() {
+      this.router.navigateByUrl('/posts/create');
+    }
+
+    confirm() {
+      console.log('Confirmed post:', this.data);
+      sessionStorage.removeItem('postPreview');
+      this.router.navigateByUrl('/');
+    }
   }
-}
