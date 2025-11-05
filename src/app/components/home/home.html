@@ -17,12 +17,20 @@
       <div class="featured-main">
         <div id="featuredCarousel" class="carousel slide custom-carousel" data-bs-ride="carousel">
           <div class="carousel-inner">
+            <div *ngIf="featuredListings.length === 0" class="carousel-item active">
+              <div class="carousel-overlay">
+                <div class="carousel-content">
+                  <h5>No Featured Listing</h5>
+                  <p>No property has been added yet.</p>
+                </div>
+              </div>
+            </div>
             <div
               *ngFor="let item of featuredListings; let i = index"
               class="carousel-item"
               [class.active]="i === 0"
             >
-              <img [src]="item.image" class="d-block w-100 carousel-img" [alt]="item.title" />
+              <img [src]="item.image || '/assets/default.jpg'" class="d-block w-100 carousel-img" [alt]="item.title" />
               <div class="carousel-overlay">
                 <div class="carousel-content">
                   <h5>{{ item.title }}</h5>
@@ -46,14 +54,20 @@
 
       <!-- Featured Info Card (smaller column) -->
       <aside class="featured-side">
-        <div class="featured-info-card">
-          <h5>Featured Listings</h5>
-          <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ac enim consectetur.</p>
+        <div class="featured-info-card" *ngIf="featuredListings.length > 0; else noFeatured">
+          <h5>{{ featuredListings[0].title }}</h5>
+          <p class="text-muted">{{ featuredListings[0].desc }}</p>
           <div class="button-group">
-            <button class="btn btn-primary">View Details</button>
-            <button class="btn btn-outline-secondary">Mark as Favorite</button>
+            <button class="btn btn-primary" (click)="viewDetails(featuredListings[0])">View Details</button>
+            <button class="btn btn-outline-secondary" (click)="toggleFav(featuredListings[0])">Mark as Favorite</button>
           </div>
         </div>
+        <ng-template #noFeatured>
+          <div class="featured-info-card">
+            <h5>No Featured Listing</h5>
+            <p class="text-muted">No property has been added yet.</p>
+          </div>
+        </ng-template>
       </aside>
     </div>
   </section>

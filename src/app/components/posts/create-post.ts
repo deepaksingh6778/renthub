@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { RouterModule, Router } from '@angular/router';
+import { DbService } from '../../services/db.service';
 
 interface PostForm {
   apartmentName: string;
@@ -29,6 +30,7 @@ interface PostForm {
   };
   title: string;
   description: string;
+  image?: string;
 }
 
 @Component({
@@ -62,18 +64,38 @@ export class CreatePost {
       laundry: false,
       elevator: false,
       clubHouse: false
-    },
-    title: '',
-    description: ''
+  },
+  title: '',
+  description: '',
+  image: ''
   };
 
   submitted = false;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private dbService: DbService) {}
 
-  onSubmit(form: NgForm) {
+  onImageSelected(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files[0]) {
+      const file = input.files[0];
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.model.image = reader.result as string;
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
+  async onSubmit(form: NgForm) {
     this.submitted = true;
     if (form.invalid) return;
+
+    // Add post to IndexedDB
+    try {
+      await this.dbService.addItem(this.model);
+    } catch (e) {
+      console.warn('Could not save post to IndexedDB', e);
+    }
 
     // Save model to sessionStorage for preview step and navigate
     try {

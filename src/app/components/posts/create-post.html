@@ -13,6 +13,12 @@
     <form #postForm="ngForm" (ngSubmit)="onSubmit(postForm)">
       <!-- Property Selection -->
       <div class="form-section">
+        <h3>Upload Property Image</h3>
+        <div class="form-group">
+          <input type="file" accept="image/*" (change)="onImageSelected($event)" />
+        </div>
+      </div>
+      <div class="form-section">
         <h3>Choose your Apartment/Building</h3>
         <div class="row">
           <div class="col-md-6 form-group">

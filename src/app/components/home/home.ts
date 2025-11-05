@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { DbService } from '../../services/db.service';
 
 @Component({
   selector: 'app-home',
@@ -10,17 +11,39 @@ import { RouterModule } from '@angular/router';
   styleUrls: ['./home.scss'],
 })
 export class Home {
+  featuredListings: any[] = [];
+  listings: any[] = [];
 
-featuredListings = [
-      { id: 1, title: 'Luxury Apartment in City Center', desc: 'Spacious 3BHK with modern amenities.', fav: false, image: '/assets/apt1.jpg' },
-      { id: 2, title: 'Cozy Studio Apartment', desc: 'Perfect for working professionals.', fav: false, image: '/assets/apt2.jpg' }
-];
+  constructor(private dbService: DbService) {
+    this.loadFeaturedListing();
+  }
 
-  listings = [
-    { id: 1, title: 'Apartment 1', desc: 'Lorem ipsum dolor sit amet.', fav: false, image: '/assets/apt3.jpg' },
-    { id: 2, title: 'Apartment 2', desc: 'Lorem ipsum dolor sit amet.', fav: false, image: '/assets/apt4.jpg' },
-    { id: 3, title: 'Apartment 3', desc: 'Lorem ipsum dolor sit amet.', fav: false, image: '/assets/apt5.jpg' },
-  ];
+  async loadFeaturedListing() {
+    const posts = await this.dbService.getAllItems();
+    console.log('Fetched posts from IndexedDB:', posts);
+    if (posts && posts.length > 0) {
+      // Map post fields for display
+      const latest = posts[posts.length - 1];
+      this.featuredListings = [{
+        title: latest.title || 'No Title',
+        desc: latest.description || 'No Description',
+        image: latest.image || '',
+        fav: false,
+        id: latest.id || 1
+      }];
+      // Map all posts for listings
+      this.listings = posts.map(post => ({
+        title: post.title || 'No Title',
+        desc: post.description || 'No Description',
+        image: post.image || '',
+        fav: false,
+        id: post.id || 1
+      }));
+    } else {
+      this.featuredListings = [];
+      this.listings = [];
+    }
+  }
 
   toggleFav(listing: any) {
     listing.fav = !listing.fav;
