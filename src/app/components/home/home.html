@@ -1,0 +1,78 @@
+<header class="navbar">
+  <div class="brand">RentHub</div>
+  <nav>
+    <a href="#">Login</a>
+    <a href="#">Register</a>
+    <a href="#">Profile</a>
+  </nav>
+</header>
+
+<main class="content">
+
+  <!-- Featured Section -->
+  <section class="featured container-fluid mt-3">
+    <div class="row">
+      <!-- Carousel -->
+      <div class="col-md-8">
+  <div id="featuredCarousel" class="carousel slide custom-carousel" data-bs-ride="carousel">
+          <div class="carousel-inner">
+            <div
+              *ngFor="let item of featuredListings; let i = index"
+              class="carousel-item"
+              [class.active]="i === 0"
+            >
+              <img [src]="item.image" class="d-block w-100 carousel-img" [alt]="item.title" />
+              <div class="carousel-caption text-start bg-dark bg-opacity-50 rounded p-3">
+                <h5>{{ item.title }}</h5>
+                <p>{{ item.desc }}</p>
+                <button class="btn btn-primary btn-sm me-2" (click)="viewDetails(item)">View Details</button>
+                <button class="btn btn-outline-light btn-sm" (click)="toggleFav(item)">
+                  {{ item.fav ? '❤️ Favorited' : 'Mark as Favorite' }}
+                </button>
+              </div>
+            </div>
+          </div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#featuredCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#featuredCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon"></span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Side Featured Info -->
+      <div class="col-md-4">
+        <div class="card p-3">
+          <h5>Featured Listings</h5>
+          <p>Explore the latest and top-rated apartments available for rent.</p>
+          <button class="btn btn-primary btn-sm me-2">View Details</button>
+          <button class="btn btn-outline-secondary btn-sm">Mark as Favorite</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- All Listings -->
+  <section class="listings mt-4">
+    <div class="container">
+      <h2>All Listings</h2>
+      <div class="row">
+        <div *ngFor="let listing of listings" class="col-md-4 mb-4">
+          <div class="card h-100">
+            <img [src]="listing.image" class="card-img-top listing-img" [alt]="listing.title" />
+            <div class="card-body">
+              <h5>{{ listing.title }}</h5>
+              <p>{{ listing.desc }}</p>
+              <button class="btn btn-outline-primary btn-sm me-2" (click)="viewDetails(listing)">View Details</button>
+              <button class="btn btn-outline-secondary btn-sm" (click)="toggleFav(listing)">
+                {{ listing.fav ? '❤️ Favorited' : 'Mark as Favorite' }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
