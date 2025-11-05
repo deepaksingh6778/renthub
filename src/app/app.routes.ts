@@ -11,5 +11,5 @@ export const routes: Routes = [
     { path: 'login', component: Login },
     { path: 'register', component: Register },
     { path: 'posts/create', component: CreatePost, canActivate: [AuthGuard] },
-    { path: 'posts/preview', component: PreviewPost, canActivate: [AuthGuard] }
+    { path: 'posts/preview/:id', component: PreviewPost, canActivate: [AuthGuard] }
 ];

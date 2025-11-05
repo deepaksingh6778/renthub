@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { DbService } from '../../services/db.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -14,7 +15,7 @@ export class Home {
   featuredListings: any[] = [];
   listings: any[] = [];
 
-  constructor(private dbService: DbService) {
+  constructor(private dbService: DbService, private router: Router) {
     this.loadFeaturedListing();
   }
 
@@ -22,13 +23,13 @@ export class Home {
     const posts = await this.dbService.getAllItems();
     console.log('Fetched posts from IndexedDB:', posts);
     if (posts && posts.length > 0) {
-      // Map all posts for carousel and listings
-      this.featuredListings = posts.map(post => ({
+      // Ensure every post has a valid id
+      this.featuredListings = posts.map((post, idx) => ({
         title: post.title || 'No Title',
         desc: post.description || 'No Description',
         image: post.image || '',
         fav: false,
-        id: post.id || 1
+        id: typeof post.id === 'number' ? post.id : idx + 1
       }));
       this.listings = this.featuredListings;
     } else {
@@ -42,6 +43,6 @@ export class Home {
   }
 
   viewDetails(listing: any) {
-    alert(`Viewing details for: ${listing.title}`);
+    this.router.navigate(['/posts/preview', listing.id]);
   }
 }

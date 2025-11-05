@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule, Router } from '@angular/router';
+import { RouterModule, Router, ActivatedRoute } from '@angular/router';
+import { DbService } from '../../services/db.service';
 
 interface PostPreview {
   apartmentName?: string;
@@ -27,22 +28,25 @@ interface PostPreview {
 })
 export class PreviewPost implements OnInit {
   data: PostPreview | null = null;
+  id: number | null = null;
 
   get amenitiesKeys(): string[] {
     if (!this.data || !this.data.amenities) return [];
     return Object.keys(this.data.amenities).filter(k => !!this.data!.amenities![k]);
   }
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private route: ActivatedRoute, private dbService: DbService) {}
 
   ngOnInit(): void {
-    try {
-      const raw = sessionStorage.getItem('postPreview');
-      this.data = raw ? JSON.parse(raw) : null;
-    } catch (e) {
-      console.warn('Failed to read preview data', e);
-      this.data = null;
-    }
+    this.route.paramMap.subscribe(async params => {
+      const idParam = params.get('id');
+      this.id = idParam ? +idParam : null;
+      if (this.id !== null) {
+        this.data = await this.dbService.getItem(this.id);
+      } else {
+        this.data = null;
+      }
+    });
   }
 
   edit() {
