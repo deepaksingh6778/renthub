@@ -9,8 +9,8 @@
 </header>
 
 <div class="container">
-  <div class="preview-panel">
-    <h2 class="mb-4">Preview and Submit</h2>
+  <div *ngIf="data; else noData" class="preview-panel">
+    <h2 class="mb-4">Property Details</h2>
 
     <div class="grid">
       <div class="card">
@@ -60,9 +60,15 @@
       </div>
     </div>
 
-    <div class="actions">
+    <div style="display: none;" class="actions">
       <button class="btn btn-secondary" (click)="edit()">Edit</button>
       <button class="btn btn-primary" (click)="confirm()">Confirm & Submit</button>
     </div>
   </div>
+  <ng-template #noData>
+    <div class="preview-panel">
+      <h2 class="mb-4">Preview and Submit</h2>
+      <div class="alert alert-warning">No post found for this ID.</div>
+    </div>
+  </ng-template>
 </div>

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { DbService } from '../../services/db.service';
@@ -15,23 +15,29 @@ export class Home {
   featuredListings: any[] = [];
   listings: any[] = [];
 
-  constructor(private dbService: DbService, private router: Router) {
-    this.loadFeaturedListing();
+  constructor(private dbService: DbService, private router: Router, private cdr: ChangeDetectorRef) {}
+
+  async ngOnInit() {
+    await this.loadFeaturedListing();
   }
 
   async loadFeaturedListing() {
     const posts = await this.dbService.getAllItems();
     console.log('Fetched posts from IndexedDB:', posts);
+    console.log('posts.length:', posts.length);
     if (posts && posts.length > 0) {
       // Ensure every post has a valid id
       this.featuredListings = posts.map((post, idx) => ({
-        title: post.title || 'No Title',
-        desc: post.description || 'No Description',
-        image: post.image || '',
+        title: post.title || post.apartmentName || 'No Title',
+        desc: post.description || post.location || 'No Description',
+        image: post.image && post.image.startsWith('data:image') ? post.image : '/assets/default.jpg',
         fav: false,
         id: typeof post.id === 'number' ? post.id : idx + 1
       }));
-      this.listings = this.featuredListings;
+  this.listings = this.featuredListings;
+  console.log('Mapped featured listings:', this.featuredListings);
+  this.cdr.detectChanges();
+      console.log('Mapped listings:', this.listings);
     } else {
       this.featuredListings = [];
       this.listings = [];

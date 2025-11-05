@@ -90,20 +90,30 @@ export class CreatePost {
     this.submitted = true;
     if (form.invalid) return;
 
-    // Add post to IndexedDB
+    // Add post to IndexedDB and get its ID
+    let newId: number | undefined;
+    let savedPost: any = null;
     try {
-      await this.dbService.addItem(this.model);
+      newId = await this.dbService.addItem(this.model);
+      if (newId !== undefined) {
+        savedPost = await this.dbService.getItem(newId);
+      }
     } catch (e) {
       console.warn('Could not save post to IndexedDB', e);
     }
 
-    // Save model to sessionStorage for preview step and navigate
+    // Save model to sessionStorage for preview step (optional)
     try {
-      sessionStorage.setItem('postPreview', JSON.stringify(this.model));
+      sessionStorage.setItem('postPreview', JSON.stringify(savedPost || this.model));
     } catch (e) {
       console.warn('Could not persist preview data', e);
     }
 
-    this.router.navigateByUrl('/posts/preview');
+    // Navigate to preview with new post ID if found
+    if (newId !== undefined && savedPost) {
+      this.router.navigate(['/posts/preview', newId]);
+    } else {
+      this.router.navigateByUrl('/posts/preview');
+    }
   }
 }

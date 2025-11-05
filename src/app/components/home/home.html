@@ -9,6 +9,7 @@
 </header>
 
 <main class="content">
+  <div style="display: none; font-size:18px;color:#d00;margin:10px 0;">Listings count: {{ listings.length }}</div>
 
   <!-- Featured Section -->
   <section class="featured container">
@@ -30,7 +31,7 @@
               class="carousel-item"
               [class.active]="i === 0"
             >
-              <img [src]="item.image || '/assets/default.jpg'" class="d-block w-100 carousel-img" [alt]="item.title" />
+              <img [src]="item.image || '/assets/default.jpg'" class="d-block w-100 carousel-img" [alt]="item.title"  />
               <div class="carousel-overlay">
                 <div class="carousel-content">
                   <h5>{{ item.title }}</h5>
@@ -79,7 +80,7 @@
       <div class="listings-grid">
         <div *ngFor="let listing of listings" class="listing-card">
           <div class="card">
-            <img [src]="listing.image" class="card-img-top listing-img" [alt]="listing.title" />
+            <img [src]="listing.image" class="card-img-top listing-img" [alt]="listing.title"  />
             <div class="card-body">
               <h5>{{ listing.title }}</h5>
               <p class="text-muted">{{ listing.desc }}</p>

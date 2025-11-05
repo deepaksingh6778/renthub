@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router, ActivatedRoute } from '@angular/router';
 import { DbService } from '../../services/db.service';
@@ -17,6 +17,7 @@ interface PostPreview {
   amenities?: { [k: string]: boolean };
   title?: string;
   description?: string;
+  image?: string;
 }
 
 @Component({
@@ -35,7 +36,7 @@ export class PreviewPost implements OnInit {
     return Object.keys(this.data.amenities).filter(k => !!this.data!.amenities![k]);
   }
 
-  constructor(private router: Router, private route: ActivatedRoute, private dbService: DbService) {}
+  constructor(private router: Router, private route: ActivatedRoute, private dbService: DbService, private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(async params => {
@@ -43,8 +44,11 @@ export class PreviewPost implements OnInit {
       this.id = idParam ? +idParam : null;
       if (this.id !== null) {
         this.data = await this.dbService.getItem(this.id);
+        console.log('Fetched post data:', this.data);
+        this.cdr.detectChanges();
       } else {
         this.data = null;
+        this.cdr.detectChanges();
       }
     });
   }
