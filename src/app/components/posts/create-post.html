@@ -34,26 +34,28 @@
       <!-- Shared Property -->
       <div class="form-section">
         <h3>Is this a shared property?</h3>
-        <div class="radio-group">
-          <div class="form-check">
-            <input 
-              type="radio" 
-              class="form-check-input" 
-              name="isShared" 
-              [value]="true"
-              [(ngModel)]="model.isShared" 
-              id="sharedYes">
-            <label class="form-check-label" for="sharedYes">Yes</label>
-          </div>
-          <div class="form-check">
-            <input 
-              type="radio" 
-              class="form-check-input" 
-              name="isShared" 
-              [value]="false"
-              [(ngModel)]="model.isShared" 
-              id="sharedNo">
-            <label class="form-check-label" for="sharedNo">No</label>
+        <div class="form-group">
+          <div class="radio-group">
+            <div class="form-check">
+              <input 
+                type="radio" 
+                class="form-check-input" 
+                name="isShared" 
+                [value]="true"
+                [(ngModel)]="model.isShared" 
+                id="sharedYes">
+              <label class="form-check-label" for="sharedYes">Yes</label>
+            </div>
+            <div class="form-check">
+              <input 
+                type="radio" 
+                class="form-check-input" 
+                name="isShared" 
+                [value]="false"
+                [(ngModel)]="model.isShared" 
+                id="sharedNo">
+              <label class="form-check-label" for="sharedNo">No</label>
+            </div>
           </div>
         </div>
       </div>
@@ -98,37 +100,39 @@
             </div>
           </div>
           <div class="col-md-6">
-            <label class="form-label">Stay Type</label>
-            <div class="radio-group">
-              <div class="form-check">
-                <input 
-                  type="radio" 
-                  class="form-check-input" 
-                  name="stayType" 
-                  value="long"
-                  [(ngModel)]="model.stayType" 
-                  id="longTerm">
-                <label class="form-check-label" for="longTerm">Long term (6+ months)</label>
-              </div>
-              <div class="form-check">
-                <input 
-                  type="radio" 
-                  class="form-check-input" 
-                  name="stayType" 
-                  value="short"
-                  [(ngModel)]="model.stayType" 
-                  id="shortTerm">
-                <label class="form-check-label" for="shortTerm">Short term</label>
-              </div>
-              <div class="form-check">
-                <input 
-                  type="radio" 
-                  class="form-check-input" 
-                  name="stayType" 
-                  value="both"
-                  [(ngModel)]="model.stayType" 
-                  id="bothTerm">
-                <label class="form-check-label" for="bothTerm">Both</label>
+            <div class="form-group">
+              <label class="form-label mb-2">Stay Type</label>
+              <div class="radio-group">
+                <div class="form-check">
+                  <input 
+                    type="radio" 
+                    class="form-check-input" 
+                    name="stayType" 
+                    value="long"
+                    [(ngModel)]="model.stayType" 
+                    id="longTerm">
+                  <label class="form-check-label" for="longTerm">Long term (6+ months)</label>
+                </div>
+                <div class="form-check">
+                  <input 
+                    type="radio" 
+                    class="form-check-input" 
+                    name="stayType" 
+                    value="short"
+                    [(ngModel)]="model.stayType" 
+                    id="shortTerm">
+                  <label class="form-check-label" for="shortTerm">Short term</label>
+                </div>
+                <div class="form-check">
+                  <input 
+                    type="radio" 
+                    class="form-check-input" 
+                    name="stayType" 
+                    value="both"
+                    [(ngModel)]="model.stayType" 
+                    id="bothTerm">
+                  <label class="form-check-label" for="bothTerm">Both</label>
+                </div>
               </div>
             </div>
           </div>
@@ -167,26 +171,29 @@
             </div>
           </div>
           <div class="col-md-6">
-            <div class="radio-group">
-              <div class="form-check">
-                <input 
-                  type="radio" 
-                  class="form-check-input" 
-                  name="rentMode" 
-                  value="month"
-                  [(ngModel)]="model.rentMode" 
-                  id="perMonth">
-                <label class="form-check-label" for="perMonth">Per Month</label>
-              </div>
-              <div class="form-check">
-                <input 
-                  type="radio" 
-                  class="form-check-input" 
-                  name="rentMode" 
-                  value="included"
-                  [(ngModel)]="model.rentMode" 
-                  id="included">
-                <label class="form-check-label" for="included">Utilities Included in rent</label>
+            <div class="form-group">
+              <label class="form-label mb-2">Price Mode</label>
+              <div class="radio-group">
+                <div class="form-check">
+                  <input 
+                    type="radio" 
+                    class="form-check-input" 
+                    name="rentMode" 
+                    value="month"
+                    [(ngModel)]="model.rentMode" 
+                    id="perMonth">
+                  <label class="form-check-label" for="perMonth">Per Month</label>
+                </div>
+                <div class="form-check">
+                  <input 
+                    type="radio" 
+                    class="form-check-input" 
+                    name="rentMode" 
+                    value="included"
+                    [(ngModel)]="model.rentMode" 
+                    id="included">
+                  <label class="form-check-label" for="included">Utilities Included in rent</label>
+                </div>
               </div>
             </div>
           </div>
@@ -196,26 +203,28 @@
       <!-- Furnished Status -->
       <div class="form-section">
         <h3>Is the room/apartment furnished?</h3>
-        <div class="radio-group">
-          <div class="form-check">
-            <input 
-              type="radio" 
-              class="form-check-input" 
-              name="isFurnished" 
-              [value]="true"
-              [(ngModel)]="model.isFurnished" 
-              id="furnishedYes">
-            <label class="form-check-label" for="furnishedYes">Yes</label>
-          </div>
-          <div class="form-check">
-            <input 
-              type="radio" 
-              class="form-check-input" 
-              name="isFurnished" 
-              [value]="false"
-              [(ngModel)]="model.isFurnished" 
-              id="furnishedNo">
-            <label class="form-check-label" for="furnishedNo">No</label>
+        <div class="form-group">
+          <div class="radio-group">
+            <div class="form-check">
+              <input 
+                type="radio" 
+                class="form-check-input" 
+                name="isFurnished" 
+                [value]="true"
+                [(ngModel)]="model.isFurnished" 
+                id="furnishedYes">
+              <label class="form-check-label" for="furnishedYes">Yes</label>
+            </div>
+            <div class="form-check">
+              <input 
+                type="radio" 
+                class="form-check-input" 
+                name="isFurnished" 
+                [value]="false"
+                [(ngModel)]="model.isFurnished" 
+                id="furnishedNo">
+              <label class="form-check-label" for="furnishedNo">No</label>
+            </div>
           </div>
         </div>
       </div>
