@@ -4,11 +4,12 @@ import { Login } from './components/auth/login';
 import { Register } from './components/auth/register';
 import { CreatePost } from './components/posts/create-post';
 import { PreviewPost } from './components/posts/preview-post';
+import { AuthGuard } from './components/auth/auth.guard';
 
 export const routes: Routes = [
-    { path: '', component: Home },
+    { path: '', component: Home, canActivate: [AuthGuard] },
     { path: 'login', component: Login },
     { path: 'register', component: Register },
-    { path: 'posts/create', component: CreatePost }
-    ,{ path: 'posts/preview', component: PreviewPost }
+    { path: 'posts/create', component: CreatePost, canActivate: [AuthGuard] },
+    { path: 'posts/preview', component: PreviewPost, canActivate: [AuthGuard] }
 ];
