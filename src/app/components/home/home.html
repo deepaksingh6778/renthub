@@ -8,7 +8,7 @@
     <div class="featured-row">
       <!-- Carousel (larger column) -->
       <div class="featured-main">
-        <div id="featuredCarousel" class="carousel slide custom-carousel" data-bs-ride="carousel">
+        <div id="featuredCarousel" class="carousel slide custom-carousel" data-bs-ride="carousel" data-bs-touch="false">
           <div class="carousel-inner">
             <div *ngIf="featuredListings.length === 0" class="carousel-item active">
               <div class="carousel-overlay">
@@ -29,8 +29,8 @@
                   <h5>{{ item.title }}</h5>
                   <p>{{ item.desc }}</p>
                   <div class="button-group">
-                    <button class="btn btn-primary" (click)="viewDetails(item)">View Details</button>
-                    <button class="btn btn-outline-light" (click)="toggleFav(item)">Mark as Favorite</button>
+                    <button class="btn btn-primary" (click)="viewDetails(item, $event)">View Details</button>
+                    <button class="btn btn-outline-light" (click)="toggleFav(item, $event)">Mark as Favorite</button>
                   </div>
                 </div>
               </div>
@@ -51,8 +51,8 @@
           <h5>{{ featuredListings[featuredListings.length - 1].title }}</h5>
           <p class="text-muted">{{ featuredListings[featuredListings.length - 1].desc }}</p>
           <div class="button-group">
-            <button class="btn btn-primary" (click)="viewDetails(featuredListings[featuredListings.length - 1])">View Details</button>
-            <button class="btn btn-outline-secondary" (click)="toggleFav(featuredListings[featuredListings.length - 1])">Mark as Favorite</button>
+            <button class="btn btn-primary" (click)="viewDetails(featuredListings[featuredListings.length - 1],$event)">View Details</button>
+            <button class="btn btn-outline-secondary" (click)="toggleFav(featuredListings[featuredListings.length - 1],$event)">Mark as Favorite</button>
           </div>
         </div>
         <ng-template #noFeatured>
@@ -77,8 +77,8 @@
               <h5>{{ listing.title }}</h5>
               <p class="text-muted">{{ listing.desc }}</p>
               <div class="button-group">
-                <button class="btn btn-primary" (click)="viewDetails(listing)">View Details</button>
-                <button class="btn btn-outline-secondary" (click)="toggleFav(listing)">Mark as Favorite</button>
+                <button class="btn btn-primary" (click)="viewDetails(listing,$event)">View Details</button>
+                <button class="btn btn-outline-secondary" (click)="toggleFav(listing,$event)">Mark as Favorite</button>
               </div>
             </div>
           </div>

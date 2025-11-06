@@ -46,11 +46,23 @@ export class Home {
     }
   }
 
-  toggleFav(listing: any) {
-    listing.fav = !listing.fav;
+  viewDetails(listing: any, event?: Event) {
+    console.log('View Details clicked for:', listing);
+  // prevent Bootstrap carousel click propagation
+  if (event) {
+    event.stopPropagation();
+    event.preventDefault();
   }
+  console.log('Navigating to details:', listing.id);
+  this.router.navigate(['/posts/preview', listing.id]);
+}
 
-  viewDetails(listing: any) {
-    this.router.navigate(['/posts/preview', listing.id]);
+toggleFav(listing: any, event?: Event) {
+  if (event) {
+    event.stopPropagation();
+    event.preventDefault();
   }
+  listing.fav = !listing.fav;
+}
+
 }

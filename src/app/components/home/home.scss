@@ -76,6 +76,17 @@
   }
 }
 
+/* --- Fix: Enable click handlers inside carousel --- */
+.carousel-overlay {
+  pointer-events: none; /* overlay should not block clicks */
+}
+
+.carousel-overlay .carousel-content {
+  pointer-events: auto; /* allow buttons inside to receive clicks */
+  position: relative;
+  z-index: 2;
+}
+
 /* Responsive featured row */
 .featured-row { display:flex; flex-direction:column; gap:1.5rem; }
 @media (min-width: 992px) {

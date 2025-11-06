@@ -6,9 +6,10 @@
     <form #regForm="ngForm" (ngSubmit)="onSubmit(regForm)">
       <div class="mb-2">
         <label class="form-label">Name</label>
-        <input name="name" [(ngModel)]="model.name" required class="form-control" #nameFld="ngModel" />
+        <input name="name" [(ngModel)]="model.name" required pattern="^[a-zA-Z0-9 ]+$" class="form-control" #nameFld="ngModel" />
         <div class="text-danger" *ngIf="(nameFld.invalid && (nameFld.dirty || nameFld.touched))">
           <div *ngIf="nameFld.errors?.['required']">Name is required.</div>
+          <div *ngIf="nameFld.errors?.['pattern']">Only letters, numbers, and spaces are allowed.</div>
         </div>
       </div>
 
