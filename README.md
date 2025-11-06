@@ -1,5 +1,35 @@
-Code path on Git: https://github.com/deepaksingh6778/renthub/tree/main
-Deployed URL : https://deepaksingh6778.github.io/renthub/index.html
-Register to create a new login creds
-Use the login creds to login using login screen
-Use create post to create a new post, the post will show on Home screen listings, feature , carousel
+# 🏠 RentHub
+
+A simple Angular + ASP.NET Core web app for apartment listings and rentals.
+
+---
+
+### 🔗 Links
+
+- **Code Repository:** [GitHub - deepaksingh6778/renthub](https://github.com/deepaksingh6778/renthub/tree/main)  
+- **Live Demo:** [RentHub on GitHub Pages](https://deepaksingh6778.github.io/renthub/index.html)
+
+---
+
+### 🧭 Usage Instructions
+
+1. **Register** to create a new login credential.  
+2. **Login** using your registered credentials through the Login screen.  
+3. **Create a Post** using the “Create Post” option.  
+4. Once created, your post will appear on the **Home Screen**:
+   - In the **Listings** section  
+   - In the **Featured** list  
+   - Inside the **Carousel** for highlighted items  
+
+---
+
+### 🛠️ Tech Stack
+
+- **Frontend:** Angular  
+- **Backend:** ASP.NET Core Web API  
+- **Database:** SQL Express (Free Edition)  
+- **Hosting:** GitHub Pages  
+
+---
+
+📦 Built with ❤️ by [Deepak Singh](https://github.com/deepaksingh6778)
