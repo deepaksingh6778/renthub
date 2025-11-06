@@ -26,8 +26,8 @@ A simple Angular + ASP.NET Core web app for apartment listings and rentals.
 ### 🛠️ Tech Stack
 
 - **Frontend:** Angular  
-- **Backend:** ASP.NET Core Web API  
-- **Database:** SQL Express (Free Edition)  
+- **Backend:** Angular Service   
+- **Database:** IndexedDB:client-side database built directly into modern web browsers 
 - **Hosting:** GitHub Pages  
 
 ---
