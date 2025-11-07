@@ -34,6 +34,7 @@ export class Login implements OnInit {
     if (user && user.password === this.model.password) {
       localStorage.setItem('authToken', 'dummy-token');
       localStorage.setItem('userName', user.name);
+      localStorage.setItem('userEmail', user.email);
       this.router.navigate(['/']);
     } else {
       alert('Invalid email or password');
