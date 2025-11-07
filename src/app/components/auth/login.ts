@@ -21,9 +21,17 @@ export class Login implements OnInit {
 
   ngOnInit() {
     // Check if user is already logged in
-    const authToken = localStorage.getItem('authToken');
+    const authToken = sessionStorage.getItem('authToken');
     if (authToken) {
-      localStorage.removeItem('authToken');
+      sessionStorage.removeItem('authToken');
+    }
+    const userName = sessionStorage.getItem('userName');
+    if (userName) {
+      sessionStorage.removeItem('userName');
+    }
+    const userEmail = sessionStorage.getItem('userEmail');
+    if (userEmail) {
+      sessionStorage.removeItem('userEmail');
     }
   }
 
@@ -32,9 +40,9 @@ export class Login implements OnInit {
     if (form.invalid) return;
     const user = await this.dbService.getUserByEmail(this.model.email);
     if (user && user.password === this.model.password) {
-      localStorage.setItem('authToken', 'dummy-token');
-      localStorage.setItem('userName', user.name);
-      localStorage.setItem('userEmail', user.email);
+      sessionStorage.setItem('authToken', 'dummy-token');
+      sessionStorage.setItem('userName', user.name);
+      sessionStorage.setItem('userEmail', user.email);
       this.router.navigate(['/']);
     } else {
       alert('Invalid email or password');

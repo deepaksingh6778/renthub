@@ -41,15 +41,15 @@ describe('Login Component', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should login with correct credentials and set localStorage', async () => {
-    spyOn(localStorage, 'setItem');
+  it('should login with correct credentials and set sessionStorage', async () => {
+    spyOn(sessionStorage, 'setItem');
     spyOn(router, 'navigate');
     component.model.email = 'test@example.com';
     component.model.password = 'password123';
     const form = { invalid: false } as any;
     await component.onSubmit(form);
-    expect(localStorage.setItem).toHaveBeenCalledWith('authToken', 'dummy-token');
-    expect(localStorage.setItem).toHaveBeenCalledWith('userName', 'Test User');
+    expect(sessionStorage.setItem).toHaveBeenCalledWith('authToken', 'dummy-token');
+    expect(sessionStorage.setItem).toHaveBeenCalledWith('userName', 'Test User');
     expect(router.navigate).toHaveBeenCalledWith(['/']);
   });
 

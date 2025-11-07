@@ -74,7 +74,7 @@ interface PostPreview {
 
     async addComment() {
       if (!this.newComment || this.id === null) return;
-      let user = localStorage.getItem('userName') || 'Anonymous';
+      let user = sessionStorage.getItem('userName') || 'Anonymous';
       this.comments.push({ user, text: this.newComment });
       await this.dbService.saveComments(this.id, this.comments);
       this.newComment = '';

@@ -18,14 +18,14 @@ export class Profile implements OnInit {
   constructor(private router: Router) {}
 
   ngOnInit(): void {
-    this.userName = localStorage.getItem('userName');
-    this.userEmail = localStorage.getItem('userEmail');
+    this.userName = sessionStorage.getItem('userName');
+    this.userEmail = sessionStorage.getItem('userEmail');
   }
 
   logout(): void {
-    localStorage.removeItem('authToken');
-    localStorage.removeItem('userName');
-    localStorage.removeItem('userEmail');
+    sessionStorage.removeItem('authToken');
+    sessionStorage.removeItem('userName');
+    sessionStorage.removeItem('userEmail');
     this.router.navigate(['/login']);
   }
 }
