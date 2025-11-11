@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { RouterModule, Router } from '@angular/router';
 import { DbService } from '../../services/db.service';
-import { NavbarComponent } from '../navbar.component';
 
 interface PostForm {
   apartmentName: string;
@@ -37,7 +36,7 @@ interface PostForm {
 @Component({
   selector: 'app-create-post',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule, NavbarComponent],
+  imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './create-post.html',
   styleUrls: ['./create-post.scss']
 })

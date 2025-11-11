@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { DbService } from '../../services/db.service';
-import { NavbarComponent } from '../navbar.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { RouterModule, Router } from '@angular/router';
@@ -8,7 +7,7 @@ import { RouterModule, Router } from '@angular/router';
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule, NavbarComponent],
+  imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './register.html',
   styleUrls: ['./register.scss'],
 })

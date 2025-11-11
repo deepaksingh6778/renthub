@@ -1,5 +1,4 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { NavbarComponent } from '../navbar.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Router, ActivatedRoute } from '@angular/router';
@@ -25,7 +24,7 @@ interface PostPreview {
 @Component({
   selector: 'app-preview-post',
   standalone: true,
-  imports: [CommonModule, RouterModule, NavbarComponent, FormsModule],
+  imports: [CommonModule, RouterModule, FormsModule],
   templateUrl: './preview-post.html',
   styleUrls: ['./preview-post.scss']
 })
