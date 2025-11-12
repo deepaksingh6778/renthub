@@ -1,6 +1,6 @@
 # 🏠 RentHub
 
-A simple Angular + ASP.NET Core web app for apartment listings and rentals.
+A SPA Angular web app for apartment listings and rentals.
 
 ---
 
