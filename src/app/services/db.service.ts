@@ -126,10 +126,8 @@ export class DbService {
 
   async seedDefaultUsers() {
     const db = await this.dbPromise;
-    const count = await db.count('users');   
-    const user = await this.getUserByEmail('admin@test.com');
-    if (user === null) {
-      console.log('Seeding default users...');
+    const user = await this.getUserByEmail('admin@test.com');   
+    if (user === undefined || user === null) {
       const defaultUser = {
         name: 'admin',
         email: 'admin@test.com',
