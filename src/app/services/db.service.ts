@@ -24,7 +24,7 @@ export class DbService {
         }
       },
     });
-    //this.seedDefaultPosts();
+    this.seedDefaultUsers();
   }
 
   async getComments(postId: number): Promise<Array<{ user: string; text: string }>> {
@@ -122,5 +122,20 @@ export class DbService {
   async deleteItem(id: number) {
     const db = await this.dbPromise;
     return db.delete('items', id);
+  }
+
+  async seedDefaultUsers() {
+    const db = await this.dbPromise;
+    const count = await db.count('users');   
+    const user = await this.getUserByEmail('admin@test.com');
+    if (user === null) {
+      console.log('Seeding default users...');
+      const defaultUser = {
+        name: 'admin',
+        email: 'admin@test.com',
+        password: 'admin123'
+      };
+      await db.put('users', defaultUser);
+    }
   }
 }

@@ -10,6 +10,10 @@ A simple Angular + ASP.NET Core web app for apartment listings and rentals.
 - **Live Demo:** [RentHub on GitHub Pages](https://deepaksingh6778.github.io/renthub/index.html)
 
 ---
+### 🔐 Credentials
+
+1. **Email ID:** 'admin@test.com',
+2. **Password:** 'admin123'
 
 ### 🧭 Usage Instructions
 
